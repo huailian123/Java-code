@@ -46,14 +46,70 @@ public class LianMAP <K, V> {
     }
     int idx = hashToBuct(key.hashcode(), initSize);
     if (buckets[idx] == null) {
-      buckets[idx] = new Node();
-    } 
-    
+      buckets[idx] = new Node(key, value);
+    } else {
+      Node head = buckets[idx];
+      Node newHead = new Node(key, value);
+      newHead.next = head;
+      buckets[idx] = newHead;
+    }
+    curSize++;    
   }
-  public boolean containsKey (K key) {}
-  public boolean containsValue (V value) {}
-  public V get(K key) {}
-  public boolean isEmpty () {}
+  
+  public boolean containsKey (K key) {
+    int idx = hashToBuct(key.hashcode(), initSize);
+    if (bucket[idx] == null) {
+      return false;
+    } else {
+      Node head = bucket[idx];
+      while (head != null) {
+        if (head.key == key) {
+        return true;
+        } else {
+          head = head.next;
+        }
+      } // end of while
+      return false;
+    }
+  }
+  
+  
+  // Time : o(n)
+  public boolean containsValue (V value) {   
+    for (int i = 0; i < curSize; i++) {
+      if (bucket[idx] != null) {
+        Node head = bucket[idx];
+        while (head != null) {
+          if (head.value == value) {
+            return true;
+          } else {
+            head = head.next;
+          }
+        } // end of while
+      }
+    }// end of for
+    return false;
+  }
+  
+  public V get(K key) { // pretty similar to containsKey
+    int idx = hashToBuct(key.hashcode(), initSize);
+    if (bucket[idx] == null) {
+      return false;
+    } else {
+      Node head = bucket[idx];
+      while (head != null) {
+        if (head.key == key) {
+        return head.value;
+        } else {
+          head = head.next;
+        }
+      } // end of while
+      return null;
+    }
+  }
+  public boolean isEmpty () {
+    return curSize == 0;
+  }
   
   public int size() {
     return this.curSize;
@@ -64,13 +120,6 @@ public class LianMAP <K, V> {
   private equals() {}
   private resize() {}
   private rehash() {}
-  
-
-  
-  
-  
-  
-  
- 
+   
   
 }
