@@ -32,6 +32,7 @@ public class LianMAP <K, V> {
   Node[] buckets; 
   private static final int INITSIZE = 16;
   private static final float LOAD_FACTOR = 0.75;
+  private static final int RESIZE = 2;
   int curSize;
   
   public LianMap(int inputSize) {
@@ -134,9 +135,21 @@ public class LianMAP <K, V> {
   
   
   private int hashToBuct(long hashcode, int range) {
-    return hashcode % range;
+    return Math.abs(hashcode) % range;
   }
-  private rehash() {}
-   
+  private rehash() {
+    Node[] newBuckets = new Node[buckets.length * RESIZE];
+    for (int i = 0; i < buckets.length; i++) {
+        if (buckets[i] != null) {
+          Node cur = buckets[i];
+          while (cur != null) {
+            int idx = hashToBuct(head.key.hashcode(), newBuckets.length);
+            Node newHead = new Node(cur.key, cur.value);
+            newHead.next = newBuckets[idx];           
+            newBuckets[idx] = newHead;        
+          }         
+        }//end of if   
+    }// end of for
+  }   
   
 }
