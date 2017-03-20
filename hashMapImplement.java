@@ -14,7 +14,7 @@
  
 //hashcode() is Key's hashcode() which is inherited from Object class. Need to override it in Key class;
 //equals() is the same;
-public class LianMAP <K, V> {
+public class LianMap <K, V> {
 
   static class Node <K, V> {
     K key;
@@ -24,14 +24,14 @@ public class LianMAP <K, V> {
       this.key = key;
       this.value = value;
     }  
-    void updata(V value) {
+    void update(V value) {
       this.value = value;
     }
   }
   
-  Node[] buckets; 
+  Node<K,V>[] buckets; 
   private static final int INITSIZE = 16;
-  private static final float LOAD_FACTOR = 0.75;
+  private static final float LOAD_FACTOR = (float) 0.75;
   private static final int RESIZE = 2;
   int curSize;
   
@@ -49,12 +49,12 @@ public class LianMAP <K, V> {
       rehash();
     }
     
-    int idx = hashToBuct(key.hashcode(), buckets.length);
+    int idx = hashToBuct(key.hashCode(), buckets.length);
     
-    Node res = findKey(buckets[idx], key);
+    Node<K, V> res = findKey(buckets[idx], key);
     if (res == null) {
-      Node head = buckets[idx];
-      Node newHead = new Node(key, value);
+      Node<K, V> head = buckets[idx];
+      Node<K, V> newHead = new Node<>(key, value);
       newHead.next = head;
       buckets[idx] = newHead;
       curSize++;
@@ -67,7 +67,7 @@ public class LianMAP <K, V> {
   }
   
   public boolean containsKey (K key) {
-    int idx = hashToBuct(key.hashcode(), buckets.length);   
+    int idx = hashToBuct(key.hashCode(), buckets.length);   
     return findKey(buckets[idx], key) != null;   
   }
   
@@ -75,8 +75,8 @@ public class LianMAP <K, V> {
   // Time : o(n)
   public boolean containsValue (V value) {   
     for (int i = 0; i < buckets.length; i++) {
-      if (bucket[i] != null) {
-        Node head = bucket[i];
+      if (buckets[i] != null) {
+        Node<K, V> head = buckets[i];
         while (head != null) {
           if (head.value.equals(value)) {
             return true;
@@ -90,13 +90,13 @@ public class LianMAP <K, V> {
   }
   
   public V get(K key) { // pretty similar to containsKey
-    int idx = hashToBuct(key.hashcode(), buckets.length);
-    Node tmp = findKey(buckets[idx], key);
+    int idx = hashToBuct(key.hashCode(), buckets.length);
+    Node<K, V> tmp = findKey(buckets[idx], key);
     return tmp == null ? null : tmp.value;
   }
   
-  private Node findKey(buckets[idx], key) {
-    Node head = bucket[idx];
+  private Node<K, V> findKey(Node<K, V> cur, K key) {
+    Node<K, V> head = cur;
     while (head != null) {
       if (head.key.equals(key)) {
         return head;
@@ -107,13 +107,13 @@ public class LianMAP <K, V> {
   }
   
   public V remove (K key) {
-    int idx = hashToBuct(key.hashcode(), buckets.length);
-    Node head = bucket[idx];
+    int idx = hashToBuct(key.hashCode(), buckets.length);
+    Node<K, V> head = buckets[idx];
     if (head == null) {
       return null;
     }
     if (head.key.equals(key)) {
-      bucket[idx] = head.next;
+      buckets[idx] = head.next;
       return head.value;
     }
     while (head.next != null) {
@@ -122,6 +122,7 @@ public class LianMAP <K, V> {
         return head.next.value;
       }
     }//end of while
+	return null;
   }
   
   public boolean isEmpty () {
@@ -131,20 +132,24 @@ public class LianMAP <K, V> {
   public int size() {
     return this.curSize;
   }
-
+  
+  public int bucketSize() {
+	    return buckets.length;
+  }
   
   
   private int hashToBuct(long hashcode, int range) {
-    return Math.abs(hashcode) % range;
+    return (int) (Math.abs(hashcode) % range);
   }
-  private rehash() {
-    Node[] newBuckets = new Node[buckets.length * RESIZE];
+  
+  private void rehash() {
+    Node<K, V>[] newBuckets = new Node[buckets.length * RESIZE];
     for (int i = 0; i < buckets.length; i++) {
         if (buckets[i] != null) {
-          Node cur = buckets[i];
+          Node<K, V> cur = buckets[i];
           while (cur != null) {
-            int idx = hashToBuct(head.key.hashcode(), newBuckets.length);
-            Node newHead = new Node(cur.key, cur.value);
+            int idx = hashToBuct(cur.key.hashCode(), newBuckets.length);
+            Node<K, V> newHead = new Node<>(cur.key, cur.value);
             newHead.next = newBuckets[idx];           
             newBuckets[idx] = newHead;        
           }         
