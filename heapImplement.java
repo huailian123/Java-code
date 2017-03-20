@@ -7,9 +7,9 @@ public class MinHeap <E>｛
   }
   public int isEmpty() {
   }
-  public MinHeap(int size) {
-    array = new E[size];
-    this.size = size;
+  public MinHeap(int initSize) {
+    array = new E[initSize];
+    size = 0;
   }
   
   public offer(E elem){
@@ -24,6 +24,8 @@ public class MinHeap <E>｛
           int temp = array[curIdx];
           array[curIdx] = array[paIdx];
           array[paIdx] = temp;
+        } else {
+          break;
         }
       } // end of while
       size++; 
@@ -42,14 +44,26 @@ public class MinHeap <E>｛
     if (size == 0) {
       return null;
     } else { 
-      return array[0];
-      update(); //TODO
+      int res = array[0];  //first, store the output;
+      array[0] = array[size - 1];
+      int curIdx = 0;
+      while (curIdx < size - 1) {
+        int lChildIdx = 2 * curIdx + 1;
+        int rChildIdx = 2 * curIdx + 2;
+        int min = Math.min(array[lChildIdx], array[lChildIdx]);
+        if (array[curIdx] > min) {
+          int minIdx = array[lChildIdx] < array[lChildIdx] ? lChildIdx : rChildIdx;
+          array[minIdx] = array[curIdx];
+          array[curIdx] = min;
+        } else {
+          break;
+        }
+      }
       size--;
+      return res;
     }
   }
   
-  private resize();
+  private resize(); 
   
-  
-  
-｝
+｝// end of class
