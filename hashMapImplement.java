@@ -155,6 +155,7 @@ public class LianMap <K, V> {
           }         
         }//end of if   
     }// end of for
+    buckets = newBuckets;
   }   
   
 }
