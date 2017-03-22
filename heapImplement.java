@@ -1,3 +1,5 @@
+
+//Tested generic type didn't work. But changed to Integer. Worked
 public class LianPQ< E extends Comparable<E>> { // has to be "extends"
 	private Object[] array;  //can't creat E[] array, do not have E constructor
 
