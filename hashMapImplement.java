@@ -14,6 +14,8 @@
  
 //hashcode() is Key's hashcode() which is inherited from Object class. Need to override it in Key class;
 //equals() is the same;
+
+//tested under Eclipse
 public class LianMap <K, V> {
 
   static class Node <K, V> {
@@ -147,7 +149,7 @@ public class LianMap <K, V> {
     for (int i = 0; i < buckets.length; i++) {
         if (buckets[i] != null) {
           Node<K, V> cur = buckets[i];
-          while (cur != null) {
+          if (cur != null) {
             int idx = hashToBuct(cur.key.hashCode(), newBuckets.length);
             Node<K, V> newHead = new Node<>(cur.key, cur.value);
             newHead.next = newBuckets[idx];           
