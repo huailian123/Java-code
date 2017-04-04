@@ -7,7 +7,9 @@ and if the structure is full, remove the oldest element? There are also no dupli
 //     2. a set to track if it is present in o(1)
 
 //tested
-static class DataStruct {
+
+
+public class DataStruct {
 		int[] array;
 		Set<Integer> set;
 		private int start;
@@ -60,4 +62,27 @@ static class DataStruct {
 			}
 			return value;
 		}
+	
+	
+	public static void main (String[] args) {
+		DataStruct ds = new DataStruct();		
+		for (int i = 1; i <= 5;i++)  {
+			ds.addTo(i);
+		}
+		System.out.println(ds.isFull() + " full");
+		ds.removeOldest();
+		for (int i = 1; i <= 5;i++)  {
+			ds.removeOldest();
+		}
+		for (int i = 1; i <= 5;i++)  {
+			ds.addTo(i);
+		}
+		for (int i = 1; i <= 2;i++)  {
+			ds.removeOldest();
+		}
+		//ds.removeOldest();
+		System.out.println(ds.isPresent(3));
+		System.out.println(ds.isPresent(2));
+		System.out.println(ds.isFull() + " full");
+	}
 }
