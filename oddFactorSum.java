@@ -2,6 +2,8 @@
 // find the sum of all the odd factor of all the numbers
 // eg. {2, 4, 6, 7, 18} out= 1 + 1 + (1 + 3) + (1 + 7) + (1 + 3 + 9) = 27
 
+// vmWare OA question Jan.2017
+
 //tested
 public static int oddFactorSum(int[] array) {
 		if (array == null || array.length == 0) {
