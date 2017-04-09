@@ -1,4 +1,6 @@
 /* 
+http://www.geeksforgeeks.org/longest-repeating-and-non-overlapping-substring/
+
 Longest repeating and non-overlapping substring
 Given a string str, find the longest repeating non-overlapping substring in it. In other words find 2 identical substrings of maximum length which do not overlap. If there exists more than one such substring return any of them.
 
