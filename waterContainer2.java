@@ -10,7 +10,6 @@
 */
 
 
-// TESTED . but when submit, time out
 //INPUT [1,2,1] OUTPUT: 2
 public class Solution {
     public int maxArea(int[] height) {
