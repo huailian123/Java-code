@@ -10,6 +10,8 @@
 // m[i][j] = m[i - 1][j -1] + 1 ,  if current 2 char equals 
 //	     m[i][j - 1] o.w;
 
+
+//tested. I think this is correct
 public int longestSubsequence(String x, String y) {
 		// write your code here
 		if (x == null || y == null || x.length() == 0 || y.length() == 0) {
