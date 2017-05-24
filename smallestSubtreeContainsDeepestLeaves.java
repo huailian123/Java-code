@@ -45,3 +45,31 @@ int height(TreeNode root) {
   int right = height(root.right);
   return Math.max(left, right) + 1;
 }
+
+
+// method 2:
+class Height {
+      int h;
+}
+TreeNode smallestSubtree(TreeNode root) {
+  Height h = new Height();
+  return height(root, h);
+}
+
+TreeNode height(TreeNode root, Height h) {
+  if(root == null) {
+    h = 0;
+    return root;
+  }  
+  Height hl = new Height();
+  Height hr = new Height();
+      
+  TreeNode left = height(root.left, hl);
+  TreeNode right = height(root.right, hr);
+  
+  h = Math.max(hl, hr) + 1;
+  if(hl == hr) {
+        return root;
+  }
+  return hl == hr ? root : (hl > hr ? left : right);
+}
